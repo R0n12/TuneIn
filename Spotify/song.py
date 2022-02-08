@@ -149,7 +149,7 @@ def recommend_songs(song_list, spotify_data, n_songs=10):
     rec_songs = rec_songs[~rec_songs['name'].isin(song_dict['name'])]
     return rec_songs[metadata_cols].to_dict(orient='records')
 
-
+#prints out the songs that are reccomended
 for song in recommend_songs([{'name': 'Come As You Are', 'year':1991},
                 {'name': 'Smells Like Teen Spirit', 'year': 1991},
                 {'name': 'Lithium', 'year': 1992},
