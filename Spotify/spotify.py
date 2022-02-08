@@ -1,3 +1,7 @@
+"""
+asks for a genre and then will output songs based on that genre if there is a matching one
+"""
+
 from __future__ import print_function
 import sys
 import spotipy

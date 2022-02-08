@@ -1,3 +1,7 @@
+"""
+This file is for taking a list of songs and producing recommended songs based on it
+"""
+
 from __future__ import print_function
 import sys
 
