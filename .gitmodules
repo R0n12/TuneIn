@@ -1,0 +1,3 @@
+[submodule "natural-language-processing-classifier"]
+	path = natural-language-processing-classifier
+	url = https://github.com/osu-cse-5914/natural-language-processing-classifier.git
