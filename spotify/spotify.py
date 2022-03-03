@@ -1,31 +1,22 @@
-from http import client
-import json
+from __future__ import print_function
+#from ossaudiodev import SNDCTL_COPR_SENDMSG
+import sys
 import spotipy
-import requests
-from spotipy.oauth2 import SpotifyClientCredentials
+import spotipy.util as util
+import json
 
-# SPOTIFY_API_BASE_URL = 'https://api.spotify.com'
-# API_VERSION = "v1"
-# SPOTIFY_API_URL = "{}/{}".format(SPOTIFY_API_BASE_URL, API_VERSION)
+token = util.prompt_for_user_token('ochuga','user-library-read',redirect_uri='http://localhost:8080')
 
-# client keys
-CLIENT = json.load(open('config.json', 'r+'))
-CLIENT_ID = CLIENT['c_id']
-CLIENT_SECRET = CLIENT['c_secret']
+sp = spotipy.Spotify(auth=token)
 
-
-CLIENT_SIDE_URL = "http://127.0.0.1"
-PORT = 8081
-REDIRECT_URI = "{}:{}/callback/".format(CLIENT_SIDE_URL, PORT)
-
-sp = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials(client_id = CLIENT_ID, client_secret = CLIENT_SECRET))
-
-results = sp.search(q='Eminem', limit=20)
-for idx, track in enumerate(results['tracks']['items']):
-    print(idx, track['artists'][0]['name'], " – ", track['name'])
-
-# GET_ARTIST_ENDPOINT = "{}/{}".format(SPOTIFY_API_URL, 'artists')
-# def get_artist(artist_id):
-#     url = "{}/{id}".format(GET_ARTIST_ENDPOINT, id=artist_id)
-#     resp = requests.get(url)
-#     return resp.json()
+def sfind(wantToFind):
+    
+    songs = []
+    genres = sp.recommendation_genre_seeds()
+    for genre in genres['genres']:
+   
+        if genre == wantToFind:
+         tracks = sp.recommendations(seed_genres=[genre])
+         for track in tracks['tracks']:
+              songs.append(f"{track['name']} by {track['artists'][0]['name']}   ")
+    return songs

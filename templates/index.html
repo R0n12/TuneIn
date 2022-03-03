@@ -22,7 +22,7 @@
     <label for="recv_content">
         Receive Data from backend
     </label>
-    <input id="recv_content" type="text" name="recv_content">
+    <div id="recv_content" type="text" name="recv_content" ></div>
 </div>
 <!-- jQuery -->
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.4.2.min.js"></script>
@@ -50,7 +50,7 @@
 <script type="text/javascript">
     $("#send").click(function () {
         $.getJSON("http://127.0.0.1:8081/change_to_json",function (data) {
-            $("#recv_content").val(data.message) //show backend data in frontend
+            $("#recv_content").text(String(data.message)) //show backend data in frontend
             console.log("receive type is: " + typeof (data.message))
             $("#send_content").val("")//empty input box
         })
