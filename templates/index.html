@@ -3,6 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <body style="background-color: #f7e7e7;"></body>
+    <style type="text/css">
+        input{
+            border:1px solid blue;
+            background-color:rgb(202, 193, 193);
+        }
+        body {
+            background-color: powderblue;
+            text-align: center;
+        }
+        .centered {
+            margin: auto;
+            width: 20%;
+        }
+
+        .thick-border {
+            border: 3px solid black;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        h1 {
+            color: blue;
+            font-family: verdana;
+            font-size: 300%;
+        }
+        p {
+            color: red;
+            font-family: courier;
+            font-size: 160%;
+        }
+        .form-submit-button {
+            background: #0066A2;
+            color: white;
+            border-style: outset;
+            border-color: #0066A2;
+            height: 50px;
+            width: 100px;
+            font: bold15px arial,sans-serif;
+            text-shadow: none;
+        }
+        .large-label {
+            display: inline-block;
+            font: bold 1.5rem sans-serif;
+            margin-bottom: 0.5rem;
+        }
+    </style>
+    
 </head>
 <body>
 
@@ -12,16 +63,28 @@
 </div>
 
 <div>
-    <label for="send_content">
+    <label for="send_content" class = "large-label">
         Send input from frontend to backend
     </label>
-    <input id = "send_content" type = "text" placeholder="What is your favorite music type?" genre="genre">
-    <input id = "send" type = "submit" value="submit">
+    <input id = "send_content" type = "text" class = "large-label" placeholder="What is your favorite music type?" genre="genre">
+    <input id = "send" type = "submit" class = "form-submit-button" value="submit">
 </div>
 <div>
-    <label for="recv_content">
+    <label for="recv_content" class = "large-label">
         Receive Data from backend
     </label>
+    <table class="centered thick-border">
+        <tr>
+            <th>Song</th>
+            <th>Artist</th>
+        </tr>
+        {% for key, val in ret_dict.items() %}
+            <tr>
+                <td>{{ key }}</td>
+                <td>{{ val }}</td>
+            </tr>		
+        {% endfor %}
+    </table>
     <div id="recv_content" type="text" name="recv_content" ></div>
 </div>
 <!-- jQuery -->
