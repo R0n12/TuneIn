@@ -10,13 +10,16 @@ token = util.prompt_for_user_token('ochuga','user-library-read',redirect_uri='ht
 sp = spotipy.Spotify(auth=token)
 
 def sfind(wantToFind):
+    print(wantToFind)
+    if wantToFind == "try something else":
+        return wantToFind
+    else:
+        songs = []
+        genres = sp.recommendation_genre_seeds()
+        for genre in genres['genres']:
     
-    songs = []
-    genres = sp.recommendation_genre_seeds()
-    for genre in genres['genres']:
-   
-        if genre == wantToFind:
-         tracks = sp.recommendations(seed_genres=[genre])
-         for track in tracks['tracks']:
-              songs.append(f"{track['name']} by {track['artists'][0]['name']}   ")
-    return songs
+            if genre == wantToFind:
+                tracks = sp.recommendations(seed_genres=[genre],limit=5)
+                for track in tracks['tracks']:
+                    songs.append(f"{track['name']} by {track['artists'][0]['name']}   ")
+        return songs

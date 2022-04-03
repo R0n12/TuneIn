@@ -78,7 +78,12 @@ def nlc_get(project_id, model_id: str):
         for feature_name in model.feature_names:
             features_for_this_datum.append(lc_feats.get(feature_name, 0.0))
         features.append(features_for_this_datum)
-    predictions = model.clf.predict(features)
+    
+    if max(features[0]) == 0:
+      return jsons.dumps("[Try something else]")
+    predictions = model.clf.predict(features) # can check if all the crossproducts are negative then send a did not understand message
+  
+   
     return jsons.dumps(predictions)
 
 
