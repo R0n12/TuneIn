@@ -3,7 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <body style="background-color: #f7e7e7;"></body>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+    <!-- Don't use this in production: -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+     
+    <body style="background-color: #f0e9e9;"></body>
     <link rel="stylesheet" href="./static/style.css">
     <style type="text/css">
         input{
@@ -19,6 +25,12 @@
             width: 20%;
         }
 
+        .cat-image{
+            position: absolute;
+            left: 0px;
+            bottom: 0px;
+        }
+
         .thick-border {
             border: 3px solid black;
             border-collapse: collapse;
@@ -29,24 +41,26 @@
             border-collapse: collapse;
         }
         h1 {
-            color: blue;
+            color: black;
             font-family: verdana;
             font-size: 300%;
         }
         p {
-            color: red;
+            color: rgb(36, 29, 29);
             font-family: courier;
             font-size: 160%;
         }
         .form-submit-button {
-            background: #0066A2;
+            background-color: #4CAF50; /* Green */
+            border: none;
             color: white;
-            border-style: outset;
-            border-color: #0066A2;
-            height: 50px;
-            width: 100px;
-            font: bold15px arial,sans-serif;
-            text-shadow: none;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 20px;
+            /* width: "200px";
+            height: "180px"; */
         }
         .large-label {
             display: inline-block;
@@ -61,22 +75,25 @@
 
 <div>
     <h1>TuneIn Music Recommendation Service</h1>
+    <p>This is a Music Recommendation Chatbox created by TuneIn.</p>
+    <div class="cat-image">
+        <img src="./static/music_cat.png" style="width:400px;height:400px;" align="left">
+    </div>
+    <img src="./static/saxophone_cat.png" style="width:200px;height:300px;" align="left">
+    
+    <!-- We will put our React component inside this div. -->
+    <div class="form-submit-button" id="like_button_container"></div>
+
+    <!-- Load React. -->
+    <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
+    <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+
+    <!-- Load our React component. -->
+    <script src="./static/like_button.js"></script>
+    <script src="./static/music_cat.js"></script>
 </div>
 
-<div>
-    <label for="send_content" class = "large-label">
-        Send input from frontend to backend
-    </label>
-    <input id = "send_content" type = "text" class = "large-label" placeholder="What is your favorite music type?" genre="genre">
-    <input id = "send" type = "submit" class = "form-submit-button" value="submit">
-</div>
-<div>
-    <label for="recv_content" class = "large-label">
-        Receive Data from backend
-    </label>
- 
-    <div id="recv_content" type="text" name="recv_content" ></div>
-</div>
 <div class="chat-bar-collapsible">
     <button id="chat-button" type="button" class="collapsible">Chat with us!
         <i id="chat-icon" style="color: #fff;" class="fa fa-fw fa-comments-o"></i>
@@ -120,38 +137,7 @@
     </div>
 
 </div>
-<!-- jQuery -->
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.4.2.min.js"></script>
-<!-- <script>$(function() { alert('hello') });</script> -->
-<script type="text/javascript">
-    $("#send").click(function () {
-        var message = $("#textinput").val()
-        $.ajax({
-            url:"http://127.0.0.1:8081/user_input",
-            type:"GET",
-            data:{
-                message:message
-            },
-            success:function (data) {
-                alert(data)
-            },
-            error:function () {
-                alert("Fail to get the input from user")
-            }
-        })
-    })
-</script>
 
-<!-- Receive -->
-<script type="text/javascript">
-    $("#send").click(function () {
-        $.getJSON("http://127.0.0.1:8081/change_to_json",function (data) {
-            $("#recv_content").text(String(data.message)) //show backend data in frontend
-            console.log("receive type is: " + typeof (data.message))
-            $("#send_content").val("")//empty input box
-        })
-    })
-</script>
 <script src="./static/chat.js"></script>
 </body>
 </html>
