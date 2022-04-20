@@ -91,7 +91,7 @@
 
     <!-- Load our React component. -->
     <script src="./static/like_button.js"></script>
-    <script src="./static/music_cat.js"></script>
+    
 </div>
 
 <div class="chat-bar-collapsible">
@@ -138,6 +138,39 @@
 
 </div>
 
+
+<!-- jQuery -->
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.4.2.min.js"></script>
+<!-- <script>$(function() { alert('hello') });</script> -->
+<script type="text/javascript">
+    $("#send").click(function () {
+        var message = $("#textinput").val()
+        $.ajax({
+            url:"http://127.0.0.1:8081/user_input",
+            type:"GET",
+            data:{
+                message:message
+            },
+            success:function (data) {
+                alert(data)
+            },
+            error:function () {
+                alert("Fail to get the input from user")
+            }
+        })
+    })
+</script>
+
+<!-- Receive -->
+<script type="text/javascript">
+    $("#send").click(function () {
+        $.getJSON("http://127.0.0.1:8081/change_to_json",function (data) {
+            $("#recv_content").text(String(data.message)) //show backend data in frontend
+            console.log("receive type is: " + typeof (data.message))
+            $("#send_content").val("")//empty input box
+        })
+    })
+</script>
 <script src="./static/chat.js"></script>
 </body>
 </html>
